@@ -8,7 +8,7 @@ def features(label_names = ["Yes", "No"]):
         {
             "id": datasets.Value("string"),
             "path": datasets.Value("string"),
-            "audio": datasets.Audio(sampling_rate=16_000),
+            "audio": datasets.Audio(),
             "speaker_id": datasets.Value("string"),
             "labels": datasets.Sequence(datasets.ClassLabel(names=label_names)),
             "metadata": {

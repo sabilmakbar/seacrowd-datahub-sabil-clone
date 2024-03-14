@@ -7,7 +7,7 @@ features = datasets.Features(
     {
         "id": datasets.Value("string"),
         "path": datasets.Value("string"),
-        "audio": datasets.Audio(sampling_rate=16_000),
+        "audio": datasets.Audio(),
         "text": datasets.Value("string"),
         "speaker_id": datasets.Value("string"),
         "metadata": {
