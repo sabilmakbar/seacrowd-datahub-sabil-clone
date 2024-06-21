@@ -40,7 +40,7 @@ _SUPPORTED_TASKS = [Tasks.SENTIMENT_ANALYSIS]
 
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 _URLS = {
     "train": "https://raw.githubusercontent.com/IndoNLP/nusa-writes/main/data/nusa_kalimat-senti-{lang}-train.csv",
@@ -163,7 +163,3 @@ class NusaTranslationSenti(datasets.GeneratorBasedBuilder):
         for row in df.itertuples():
             ex = {"id": str(row.id), "text": row.text, "label": row.label}
             yield row.id, ex
-
-
-if __name__ == "__main__":
-    datasets.load_dataset(__file__)

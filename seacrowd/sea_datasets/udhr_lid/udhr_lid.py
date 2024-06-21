@@ -81,7 +81,7 @@ _SUPPORTED_TASKS = [Tasks.LANGUAGE_IDENTIFICATION]
 
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 
 class UDHRLID(datasets.GeneratorBasedBuilder):
@@ -139,7 +139,7 @@ class UDHRLID(datasets.GeneratorBasedBuilder):
 
         return [
             datasets.SplitGenerator(
-                name=datasets.Split.TRAIN,
+                name=datasets.Split.TEST,
                 gen_kwargs={
                     "filepath": data_path,
                 },

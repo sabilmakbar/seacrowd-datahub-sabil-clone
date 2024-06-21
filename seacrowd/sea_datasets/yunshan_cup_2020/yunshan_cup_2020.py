@@ -38,6 +38,9 @@ Lao POS dataset containing 11,000 sentences was released as part of Yunshan-Cup-
 
 _HOMEPAGE = "https://github.com/GKLMIP/Yunshan-Cup-2020"
 
+_LOCAL = False
+_LANGUAGES = ["lao"]
+
 _LICENSE = Licenses.UNKNOWN.value  # example: Licenses.MIT.value, Licenses.CC_BY_NC_SA_4_0.value, Licenses.UNLICENSE.value, Licenses.UNKNOWN.value
 
 _URLS = {
@@ -48,7 +51,7 @@ _URLS = {
 _SUPPORTED_TASKS = [Tasks.POS_TAGGING]  # example: [Tasks.TRANSLATION, Tasks.NAMED_ENTITY_RECOGNITION, Tasks.RELATION_EXTRACTION]
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 
 class YunshanCup2020Dataset(datasets.GeneratorBasedBuilder):

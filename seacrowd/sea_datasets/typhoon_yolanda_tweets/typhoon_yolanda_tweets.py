@@ -30,6 +30,9 @@ sentiment categories: positive, negative, and neutral.
 
 _HOMEPAGE = "https://github.com/imperialite/Philippine-Languages-Online-Corpora/tree/master/Tweets/Annotated%20Yolanda"
 
+_LOCAL = False
+_LANGUAGES = ["fil"]
+
 _LICENSE = Licenses.CC_BY_4_0.value
 
 _ROOT_URL = "https://raw.githubusercontent.com/imperialite/Philippine-Languages-Online-Corpora/master/Tweets/Annotated%20Yolanda/"
@@ -39,7 +42,7 @@ _SUPPORTED_TASKS = [Tasks.SENTIMENT_ANALYSIS]
 
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 class TyphoonYolandaTweets(datasets.GeneratorBasedBuilder):
     """

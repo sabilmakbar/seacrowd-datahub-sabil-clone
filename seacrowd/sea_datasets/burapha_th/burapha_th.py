@@ -38,6 +38,7 @@ _HOMEPAGE = "https://services.informatics.buu.ac.th/datasets/Burapha-TH/"
 _LICENSE = Licenses.UNKNOWN.value
 
 _LOCAL = False
+_LANGUAGES = ["tha"]  # We follow ISO639-3 language code (https://iso639-3.sil.org/code_tables/639/data)
 
 _URLS = {
     "character": {"test": "https://services.informatics.buu.ac.th/datasets/Burapha-TH/character/20210306-test.zip", "train": "https://services.informatics.buu.ac.th/datasets/Burapha-TH/character/20210306-train.zip"},
@@ -48,7 +49,7 @@ _URLS = {
 _SUPPORTED_TASKS = [Tasks.IMAGE_CAPTIONING]
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 _SUBSETS = ["character", "digit", "syllable"]
 

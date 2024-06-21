@@ -54,9 +54,11 @@ _SUPPORTED_TASKS = [Tasks.IMAGE_CAPTIONING]
 
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
-_LANGS = ["fil", "id", "th", "vi"]
+_LANGUAGES = ["fil", "id", "th", "vi"]
+
+_LOCAL = False
 
 
 class XM3600Dataset(datasets.GeneratorBasedBuilder):
@@ -79,7 +81,7 @@ class XM3600Dataset(datasets.GeneratorBasedBuilder):
             schema="source",
             subset_id=f"{_DATASETNAME}_{lang}",
         )
-        for lang in _LANGS
+        for lang in _LANGUAGES
     ] + [
         SEACrowdConfig(
             name=f"{_DATASETNAME}_{lang}_seacrowd_imtext",
@@ -88,10 +90,10 @@ class XM3600Dataset(datasets.GeneratorBasedBuilder):
             schema="seacrowd_imtext",
             subset_id=f"{_DATASETNAME}_{lang}",
         )
-        for lang in _LANGS
+        for lang in _LANGUAGES
     ]
 
-    DEFAULT_CONFIG_NAME = f"xm3600_{sorted(_LANGS)[0]}_source"
+    DEFAULT_CONFIG_NAME = f"xm3600_{sorted(_LANGUAGES)[0]}_source"
 
     def _info(self) -> datasets.DatasetInfo:
         if self.config.schema == "source":

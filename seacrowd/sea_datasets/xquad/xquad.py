@@ -32,10 +32,13 @@ _HOMEPAGE = "https://github.com/google-deepmind/xquad"
 
 _LICENSE = Licenses.CC_BY_SA_4_0.value
 
+_LOCAL = False
+_LANGUAGES = ["tha", "vie"]
+
 _SUPPORTED_TASKS = [Tasks.QUESTION_ANSWERING]
 
 _SOURCE_VERSION = "1.0.0"
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 
 class XQuADDataset(datasets.GeneratorBasedBuilder):

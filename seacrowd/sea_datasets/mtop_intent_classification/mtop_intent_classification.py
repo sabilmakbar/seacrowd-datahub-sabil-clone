@@ -51,7 +51,7 @@ _URL = "https://huggingface.co/datasets/mteb/"
 
 _SUPPORTED_TASKS = [Tasks.INTENT_CLASSIFICATION]
 _SOURCE_VERSION = "1.0.0"
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 
 class MTOPIntentClassificationDataset(datasets.GeneratorBasedBuilder):
@@ -67,7 +67,7 @@ class MTOPIntentClassificationDataset(datasets.GeneratorBasedBuilder):
             version=datasets.Version(_SOURCE_VERSION),
             description=f"{_DATASETNAME} source schema for {subset} subset",
             schema="source",
-            subset_id=subset,
+            subset_id=f"{_DATASETNAME}_{subset}",
         )
         for subset in SUBSETS
     ] + [
@@ -76,7 +76,7 @@ class MTOPIntentClassificationDataset(datasets.GeneratorBasedBuilder):
             version=datasets.Version(_SEACROWD_VERSION),
             description=f"{_DATASETNAME} SEACrowd schema for {subset} subset",
             schema="seacrowd_text",
-            subset_id=subset,
+            subset_id=f"{_DATASETNAME}_{subset}",
         )
         for subset in SUBSETS
     ]

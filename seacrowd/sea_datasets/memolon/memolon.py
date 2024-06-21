@@ -57,12 +57,15 @@ _URLS = {
 }
 
 _SOURCE_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
-_LANGUAGES = ["ceb", "tl", "id", "su", "jv", "ms", "vi", "th", "my"]
+_LANGUAGES = ["ceb", "tgl", "ind", "sun", "jav", "zsm", "vie", "tha", "mya"]
 
-_LANGUAGE_MAP = {"ceb": "Cebuano", "tl": "Tagalog", "id": "Indonesian", "su": "Sundanese", "jv": "Javanese", "ms": "Malay", "vi": "Vietnamese", "th": "Thai", "my": "Burmese"}
+_LANGUAGE_MAP = {"ceb": "Cebuano", "tgl": "Tagalog", "ind": "Indonesian", "sun": "Sundanese", "jav": "Javanese", "zsm": "Malay", "vie": "Vietnamese", "tha": "Thai", "mya": "Burmese"}
 
 _SUPPORTED_TASKS = [Tasks.EMOTION_CLASSIFICATION]
+
+_LOCAL = False
 
 
 def seacrowd_config_constructor(lang: str, schema: str, version: str) -> SEACrowdConfig:

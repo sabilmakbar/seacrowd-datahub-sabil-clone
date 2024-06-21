@@ -68,7 +68,7 @@ _SUPPORTED_TASKS = [Tasks.POS_TAGGING]
 
 _SOURCE_VERSION = "1.1.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 
 class PosSunMonoDataset(datasets.GeneratorBasedBuilder):
@@ -265,7 +265,3 @@ class PosSunMonoDataset(datasets.GeneratorBasedBuilder):
 
         else:
             raise NotImplementedError(f"Schema '{self.config.schema}' is not defined.")
-
-
-if __name__ == "__main__":
-    datasets.load_dataset(__file__)

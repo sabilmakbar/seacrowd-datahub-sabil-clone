@@ -63,7 +63,7 @@ _URLs = {"indonlg": "https://storage.googleapis.com/babert-pretraining/IndoNLG_f
 _SUPPORTED_TASKS = [Tasks.MACHINE_TRANSLATION]
 
 _SOURCE_VERSION = "1.0.0"
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 
 class TEDEnId(datasets.GeneratorBasedBuilder):
@@ -143,7 +143,3 @@ class TEDEnId(datasets.GeneratorBasedBuilder):
                 yield row["id"], ex
         else:
             raise ValueError(f"Invalid config: {self.config.name}")
-
-
-if __name__ == "__main__":
-    datasets.load_dataset(__file__)

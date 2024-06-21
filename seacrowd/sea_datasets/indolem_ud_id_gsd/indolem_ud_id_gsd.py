@@ -112,7 +112,7 @@ _SUPPORTED_TASKS = [Tasks.DEPENDENCY_PARSING]
 
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 
 # TODO: Name the dataset class to match the script name using CamelCase instead of snake_case
@@ -217,7 +217,3 @@ class IndolemUdIdGsdDataset(datasets.GeneratorBasedBuilder):
 
         for key, example in enumerate(generator_fn(filepath)):
             yield key, example
-
-
-# if __name__ == "__main__":
-#     datasets.load_dataset(__file__)

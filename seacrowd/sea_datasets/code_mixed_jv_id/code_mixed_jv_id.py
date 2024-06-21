@@ -100,7 +100,7 @@ _SUPPORTED_TASKS = [Tasks.SENTIMENT_ANALYSIS, Tasks.MACHINE_TRANSLATION]
 
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 _LANGUAGES = ['jav', 'ind']
 _LOCAL = False
@@ -200,6 +200,3 @@ class CodeMixedSenti(datasets.GeneratorBasedBuilder):
                 ex = {"id": str(i), "text_1": row.text_jav, "text_2": row.text_ind, "text_1_name": "jav", "text_2_name": "ind"}
                 yield i, ex
                 i += 1
-
-if __name__ == "__main__":
-    datasets.load_dataset(__file__)

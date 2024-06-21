@@ -31,7 +31,7 @@ _URLS = "https://unicode.org/udhr/assemblies/udhr_txt.zip"
 _SUPPORTED_TASKS = [Tasks.SELF_SUPERVISED_PRETRAINING]
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 _LANGS = {
     "ace": "Aceh",
@@ -71,6 +71,9 @@ _LANGS = {
     "war": "Waray-waray", 
     "zlm": "Malay",  # default mly_latn
 }
+
+_LOCAL=False
+_LANGUAGES=["ace", "ban", "bcl", "blt", "bug", "ceb", "cfm", "cnh", "ctd", "duu", "hil", "hlt", "hni", "hnj", "ilo", "ind", "jav", "khm", "kkh", "lao", "lus", "mad", "min", "mnw", "mya", "pam", "shn", "sun", "tdt", "tet", "tgl", "tha", "vie", "war", "zlm"]
 
 def seacrowd_config_constructor(src_lang, schema, version):
     if src_lang == "":

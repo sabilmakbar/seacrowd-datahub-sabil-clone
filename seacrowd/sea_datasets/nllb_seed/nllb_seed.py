@@ -91,7 +91,7 @@ _SUPPORTED_TASKS = [Tasks.MACHINE_TRANSLATION]  # example: [Tasks.TRANSLATION, T
 #  This version doesn't have to be consistent with semantic versioning. Anything that is
 #  provided by the original dataset as a version goes.
 _SOURCE_VERSION = "1.0.0"
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 _LOCAL = False
 
 
@@ -301,13 +301,3 @@ class NLLBSeed(datasets.GeneratorBasedBuilder):
                 yield id, row
         else:
             raise ValueError(f"Invalid config: {self.config.name}")
-
-
-# This template is based on the following template from the datasets package:
-# https://github.com/huggingface/datasets/blob/master/templates/new_dataset_script.py
-
-
-# This allows you to run your dataloader with `python [dataset_name].py` during development
-# TODO: Remove this before making your PR
-if __name__ == "__main__":
-    datasets.load_dataset(__file__)

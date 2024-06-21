@@ -2,7 +2,10 @@ import os
 from pathlib import Path, PureWindowsPath
 from typing import Dict, List, Tuple
 
-import cv2
+try:
+    import cv2
+except:
+    print("Install the `cv2` package to use.")
 import datasets
 import pandas as pd
 
@@ -44,7 +47,7 @@ _SUPPORTED_TASKS = [Tasks.VIDEO_TO_TEXT_RETRIEVAL, Tasks.VIDEO_CAPTIONING]
 
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 
 class FSL105Dataset(datasets.GeneratorBasedBuilder):
@@ -95,7 +98,7 @@ class FSL105Dataset(datasets.GeneratorBasedBuilder):
                 {
                     "id": datasets.Value("string"),
                     "video_path": datasets.Value("string"),
-                    "texts": datasets.Value("string"),
+                    "text": datasets.Value("string"),
                     "labels": datasets.ClassLabel(names=self.category),
                     "metadata": {
                         "resolution": {
@@ -164,7 +167,7 @@ class FSL105Dataset(datasets.GeneratorBasedBuilder):
                 yield key, {
                     "id": str(key),
                     "video_path": os.path.join(filepath["clips"], example["vid_path"]),
-                    "texts": example["label"],
+                    "text": example["label"],
                     "labels": example["category"],
                     "metadata": {
                         "resolution": {
@@ -179,7 +182,7 @@ class FSL105Dataset(datasets.GeneratorBasedBuilder):
                 yield key, {
                     "id": str(key),
                     "video_path": os.path.join(filepath["clips"], example["vid_path"]),
-                    "texts": example["label"],
+                    "text": example["label"],
                     "metadata": {
                         "resolution": {
                             "width": vid_width,

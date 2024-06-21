@@ -1,208 +1,53 @@
-# Guideline for contributing a dataloader implementation
+# Contributing in SEACrowd
 
-## Pre-Requisites
+You can contribute by proposing **unregistered NLP dataset** on [our approved record](https://seacrowd.github.io/seacrowd-catalogue/) and our [in-review datasets](https://docs.google.com/spreadsheets/d/1ibbywsC1tQ_sLPX8bUAjC-vrTrUqZgZA46W_sxWw4Ss/edit?usp=sharing). [Just fill out this form](https://jotform.com/team/232952680898069/seacrowd-sea-datasets), and we will check and approve your entry if it meets our requirements (see [this](https://github.com/SEACrowd/seacrowd-datahub/blob/master/REVIEWING.md#approval-checklist) for the detailed checklist).
 
-Please make a GitHub account prior to implementing a dataset; you can follow the instructions to install git [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+We will give **contribution points** based on several factors, including: **supported modality**, **language scarcity**, or **task scarcity**.
 
-You will also need at least Python 3.6+. If you are installing Python, we recommend downloading [anaconda](https://docs.anaconda.com/anaconda/install/index.html) to curate a Python environment with the necessary packages. **We strongly recommend Python 3.8+ for stability**.
+You can also propose datasets from your past work that have not been released to the public.
+In that case, you must first make your dataset open by uploading it publicly, i.e. via Github or Google Drive.
 
-**Optional** Setup your GitHub account with SSH ([instructions here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).)
+You can submit multiple entries, and if the total **contribution points** is already above the threshold, we will include you as a co-author (Generally it is enough to only propose 1-2 datasets). Read the full method of calculating points [here](POINTS.md).
 
-### 1. **Assigning a dataloader**
-- Choose a dataset from the [list of SEACrowd datasets](https://github.com/orgs/SEACrowd/projects/1/views/1).
-<p align="center">
-    <img src="./docs/_static/img/select_task.png" style="width: 70%;"/>
-</p>
+> **Note**: We are not taking any ownership of the submitted dataset. See FAQ below.
 
-- Assign yourself an issue by commenting `#self-assign` under the issue. **Please assign yourself to issues with no other collaborators assigned**. You should see your GitHub username associated with the issue within 1-2 minutes of making a comment.
+## Any other way to help?
 
-<p align="center">
-    <img src="./docs/_static/img/self-assign.png" style="width: 80%;"/>
-</p>
+Yes! Aside from new dataset collection, we are also centralizing existing datasets in a single schema that makes it easier for researchers to use Indonesian NLP datasets. You can help us there by building dataset loader. More details about that [here](DATALOADER.md).
 
-- Search to see if the dataset exists in the 🤗 [Hub](https://huggingface.co/datasets). If it exists, please use the current implementation as the `source` and focus on implementing the [task-specific seacrowd schema](https://github.com/SEACrowd/seacrowd-datahub/blob/master/task_schemas.md).
+Alternatively, we're also listing NLP research papers of Indonesian languages where they do not open their dataset yet. We will contact the authors of these papers later to be involved in SEACrowd. More about this is available in our [Discord server](https://discord.gg/URdhUGsBUQ).
 
-- If not, find the dataset online, usually uploaded in Github or Google Drive.
+## FAQs
 
-### 2. **Setup a local version of the SEACrowd repo**
-Fork the seacrowd-datahub [repository](https://github.com/SEACrowd/seacrowd-datahub) to your local Github account. To do this, click the link to the repository and click "fork" in the upper-right corner.
+#### Who will be the owner of the submitted dataset?
 
-After you fork, clone the repository locally. You can do so as follows:
+SEACrowd **do not** make a clone or copy of the submitted dataset. Therefore, the owner of any submitted dataset will remain to the original author. SEACrowd simply build a dataloader, i.e. a file downloader + reader so simplify and standardize the data reading process. We also only collect and centralize metadata of the submitted dataset to be listed in [our catalogue](https://seacrowd.github.io/seacrowd-catalogue/) for better discoverability of your dataset!
+Citation to the original data owner is also provided for both SEACrowd and in our catalogue.
 
-    git clone git@github.com:<your_github_username>/seacrowd-datahub.git
-    cd seacrowd-datahub  # enter the directory
+#### How can I find the appropriate license for my dataset?
 
-Next, you want to set your `upstream` location to enable you to push/pull (add or receive updates). You can do so as follows:
+The license for a dataset is not always obvious. Here are some strategies to try in your search,
 
-    git remote add upstream git@github.com:SEACrowd/seacrowd-datahub.git
+* check for files such as README or LICENSE that may be distributed with the dataset itself
+* check the dataset webpage
+* check publications that announce the release of the dataset
+* check the website of the organization providing the dataset
 
-You can optionally check that this was set properly by running the following command:
+If no official license is listed anywhere, but you find a webpage that describes general data usage policies for the dataset, you can fall back to providing that URL in the `_LICENSE` variable. If you can't find any license information, please note in your PR and put `_LICENSE="Unknown"` in your dataset script.
 
-    git remote -v
+#### What if my dataset is not yet publicly available?
+You can upload your dataset publicly first, e.g., on Github. If you're an owner of a Private Dataset that is being contacted by SEACrowd Representative for a possibility of opening that dataset, you may visit this [Private Dataset FAQ](PRIVATE.md).
 
-The output of this command should look as follows:
+#### Can I create a PR if I have an idea?
 
-    origin  git@github.com:<your_github_username>/seacrowd-datahub.git (fetch)
-    origin  git@github.com:<your_github_username>/seacrowd-datahub.git (push)
-    upstream    git@github.com:SEACrowd/seacrowd-datahub.git (fetch)
-    upstream    git@github.com:SEACrowd/seacrowd-datahub.git (push)
+If you have an idea to improve or change the code of the `seacrowd-datahub` repository, please create an `issue` and ask for `feedback` before starting any PRs.
 
-If you do NOT have an `origin` for whatever reason, then run:
+#### I am confused, can you help me?
 
-    git remote add origin git@github.com:<your_github_username>/seacrowd-datahub.git
+Yes, you can ask for helps in SEACrowd's community channel! Please join our [Discord server](https://discord.gg/URdhUGsBUQ).
 
-The goal of `upstream` is to keep your repository up-to-date with any changes made officially to the datasets library. You can do this as follows by running the following commands:
+## Thank you!
 
-    git fetch upstream
-    git pull
+We greatly appreciate your help!
 
-Provided you have no *merge conflicts*, this will ensure the library stays up-to-date as you make changes. However, before you make changes, you should make a custom branch to implement your changes.
-
-You can make a new branch as such:
-
-    git checkout -b <dataset_name>
-
-<p style="color:red"> <b> Please do not make changes on the master branch! </b></p>
-
-Always make sure you're on the right branch with the following command:
-
-    git branch
-
-The correct branch will have an asterisk \* in front of it.
-
-### 2. **Create a development environment**
-You can make an environment in any way you choose. We highlight two possible options:
-
-#### 2a) Create a conda environment
-
-The following instructions will create an Anaconda `env-seacrowd-datahub` environment.
-
-- Install [anaconda](https://docs.anaconda.com/anaconda/install/) for your appropriate operating system.
-- Run the following command while in the `sea_datasets` folder (you can pick your python version):
-
-```
-conda env create -f conda.yml  # Creates a conda env
-conda activate env-seacrowd-datahub # Activate your conda environment
-```
-
-You can deactivate your environment at any time by either exiting your terminal or using `conda deactivate`.
-
-#### 2b) Create a venv environment
-
-Python 3.3+ has venv automatically installed; official information is found [here](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/).
-
-```
-python3 -m venv <your_env_name_here>
-source <your_env_name_here>/bin/activate  # activate environment
-pip install -r requirements.txt # Install this while in the datasets folder
-```
-Make sure your `pip` package points to your environment's source.
-
-### 3. Implement your dataloader
-
-Make a new directory within the `SEACrowd/seacrowd-datahub/sea_datasets` directory:
-
-    mkdir seacrowd-datahub/sea_datasets/<dataset_name>
-
-Please use lowercase letters and underscores when choosing a `<dataset_name>`.
-To implement your dataset, there are three key methods that are important:
-
-  * `_info`: Specifies the schema of the expected dataloader
-  * `_split_generators`: Downloads and extracts data for each split (e.g. train/val/test) or associate local data with each split.
-  * `_generate_examples`: Create examples from data that conform to each schema defined in `_info`.
-
-To start, copy [templates/template.py](templates/template.py) to your `seacrowd/sea_datasets/<dataset_name>` directory with the name `<dataset_name>.py`. Within this file, fill out all the TODOs.
-
-    cp templates/template.py seacrowd/sea_datasets/<dataset_name>/<dataset_name>.py
-
-For the `_info_` function, you will need to define `features` for your
-`DatasetInfo` object. For the `bigbio` config, choose the right schema from our list of examples. You can find a description of these in the [Task Schemas Document](task_schemas.md). You can find the actual schemas in the [schemas directory](seacrowd/utils/schemas).
-
-You will use this schema in the `_generate_examples` return value.
-
-Populate the information in the dataset according to this schema; some fields may be empty.
-
-To enable quality control, please add the following line in your file before the class definition:
-```python
-from seacrowd.utils.constants import Tasks
-_SUPPORTED_TASKS = [Tasks.NAMED_ENTITY_RECOGNITION, Tasks.DEPENDENCY_PARSING]
-```
-
-##### Example scripts:
-To help you implement a dataset, you can see the implementation of [other dataset scripts](seacrowd/sea_datasets).
-
-#### Running & Debugging:
-You can run your data loader script during development by appending the following
-statement to your code ([templates/template.py](templates/template.py) already includes this):
-
-```python
-if __name__ == "__main__":
-    datasets.load_dataset(__file__)
-```
-
-If you want to use an interactive debugger during development, you will have to use
-`breakpoint()` instead of setting breakpoints directly in your IDE. Most IDEs will
-recognize the `breakpoint()` statement and pause there during debugging. If your prefered
-IDE doesn't support this, you can always run the script in your terminal and debug with
-`pdb`.
-
-
-### 4. Check if your dataloader works
-
-Make sure your dataset is implemented correctly by checking in python the following commands:
-
-```python
-from datasets import load_dataset
-
-data = load_dataset("seacrowd/sea_datasets/<dataset_name>/<dataset_name>.py", name="<dataset_name>_seacrowd_<schema>")
-```
-
-Run these commands from the top level of the `nusa-crowd` repo (i.e. the same directory that contains the `requirements.txt` file).
-
-Once this is done, please also check if your dataloader satisfies our unit tests as follows by using this command in the terminal:
-
-```bash
-python -m tests.test_seacrowd seacrowd/sea_datasets/<dataset_name>/<dataset_name>.py [--data_dir /path/to/local/data]
-```
-
-Your particular dataset may require use of some of the other command line args in the test script.
-To view full usage instructions you can use the `--help` command,
-
-```bash
-python -m tests.test_seacrowd --help
-```
-
-### 5. Format your code
-
-From the main directory, run the Makefile via the following command:
-
-    make check_file=seacrowd/sea_datasets/<dataset_name>/<dataset_name>.py
-
-This runs the black formatter, isort, and lints to ensure that the code is readable and looks nice. Flake8 linting errors may require manual changes.
-
-### 6. Commit your changes
-
-First, commit your changes to the branch to "add" the work:
-
-    git add seacrowd/sea_datasets/<dataset_name>/<dataset_name>.py
-    git commit -m "A message describing your commits"
-
-Then, run the following commands to incorporate any new changes in the master branch of datasets as follows:
-
-    git fetch upstream
-    git rebase upstream/master
-
-Or you can install the pre-commit hooks to automatically pre-check before commit by:
-
-    pre-commit install
-**Run these commands in your custom branch**.
-
-Push these changes to **your fork** with the following command:
-
-    git push -u origin <dataset_name>
-
-### 7. **Make a pull request**
-
-Make a Pull Request to implement your changes on the main repository [here](https://github.com/SEACrowd/seacrowd-datahub/pulls). To do so, click "New Pull Request". Then, choose your branch from your fork to push into "base:master".
-
-When opening a PR, please link the [issue](https://github.com/SEACrowd/seacrowd-datahub/issues) corresponding to your dataset using [closing keywords](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) in the PR's description, e.g. `resolves #17`.
+The artifacts of this initiative will be described in a forthcoming academic paper targeting a machine learning or NLP audience. Please refer to [this section](https://github.com/SEACrowd#how-much-should-i-contribute) for your contribution rewards in helping AI in Southeast Asia. We recognize that some datasets require more effort than others, so please reach out if you have questions. Our goal is to be inclusive with credit!

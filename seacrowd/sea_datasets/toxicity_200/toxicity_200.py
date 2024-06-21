@@ -54,7 +54,7 @@ _SUPPORTED_TASKS = []  # [Tasks.SELF_SUPERVISED_PRETRAINING]  # example: [Tasks.
 
 _SOURCE_VERSION = "1.0.0"
 
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
 
 
 def seacrowd_config_constructor(lang, schema, version):
@@ -138,6 +138,3 @@ class Toxicity200(datasets.GeneratorBasedBuilder):
                 yield id, row
         else:
             raise ValueError(f"Invalid config: {self.config.name}")
-
-if __name__ == "__main__":
-    datasets.load_dataset(__file__)

@@ -1,77 +1,97 @@
+<img width="100%" alt="SEACrowd Logo" src="https://github.com/SEACrowd/.github/blob/main/profile/assets/seacrowd-email-banner-without-logo.png?raw=true">
+
 # Welcome to SEACrowd!
 
-<!--
-<h3>158 datasets registered</h3>
+Southeast Asia is home to more than 1,000 native languages. Nevertheless, Southeast Asian NLP, vision-language, and speech processing is underrepresented in the research community, and one of the reasons is the lack of access to public datasets ([Aji et al., 2022](https://aclanthology.org/2022.acl-long.500/)). To address this issue, we initiate **SEACrowd**, a joint collaboration to collect NLP datasets for Southeast Asian languages. Help us collect and centralize Southeast Asian datasets, and be a co-author of our upcoming paper.
 
-![Dataset claimed](https://progress-bar.dev/83/?title=Datasets%20Claimed%20(119%20Datasets%20Claimed))
+## How to Use
 
-<!-- milestone starts
-![Milestone 1](https://progress-bar.dev/100/?title=Milestone%201%20(30%20Datasets%20Completed))
+### Library Installation
 
-![Milestone 2](https://progress-bar.dev/100/?title=Milestone%202%20(60%20Datasets%20Completed))
+Find seacrowd library (v0.1.3) at https://pypi.org/project/seacrowd/. (See our release notes [here](https://github.com/SEACrowd/seacrowd-datahub/releases/tag/0.1.3).)
 
-![Milestone 3](https://progress-bar.dev/100/?title=Milestone%203%20(100%20Datasets%20Completed))
+To install SEACrowd, install the `seacrowd` package in your python environment via `pip`.
 
-![Milestone 4](https://progress-bar.dev/84/?title=Milestone%204%20(150%20Datasets%20Completed))
-<!-- milestone ends -->
+```
+pip install seacrowd
+```
 
-South East Asia is home to more than 1,000 native languages. Nevertheless, South-East Asian NLP is underrepresented in the research community, and one of the reasons is the lack of access to public datasets ([Aji et al., 2022](https://aclanthology.org/2022.acl-long.500/)). To address this issue, we initiate **SEACrowd**, a joint collaboration to collect NLP datasets for South-East Asian languages. Help us collect and centralize South-East Asian NLP datasets, and be a co-author of our upcoming paper.
+### Using `seacrowd` library
 
-## How to contribute?
+To use the `seacrowd` package, simply import it in your code:
+```
+import seacrowd as sc
+````
 
-You can contribute by proposing **unregistered NLP dataset** on [our approved record](https://seacrowd.github.io/seacrowd-catalogue/) and our [in-review datasets](https://docs.google.com/spreadsheets/d/1ibbywsC1tQ_sLPX8bUAjC-vrTrUqZgZA46W_sxWw4Ss/edit?usp=sharing). [Just fill out this form](https://jotform.com/team/232952680898069/seacrowd-sea-datasets), and we will check and approve your entry if it meets our requirements (see [this](https://github.com/SEACrowd/seacrowd-datahub/blob/master/REVIEWING.md#approval-checklist) for the detailed checklist).
+### List & Load Dataset
+SEACrowd provides functions for listing and loading all datasets that are implemented in NusaCrowd
+```
+# List all datasets
+dset_names = sc.list_datasets()
 
-We will give **contribution points** based on several factors, including: **supported modality**, **language scarcity**, or **task scarcity**.
+# List all datasets with their config names
+dset_configs_dict = sc.list_datasets(with_config=True)
 
-You can also propose datasets from your past work that have not been released to the public.
-In that case, you must first make your dataset open by uploading it publicly, i.e. via Github or Google Drive.
+# Load a single dataset based on the dataset name
+khpos_dset = sc.load_dataset("khpos", schema="seacrowd")
 
-You can submit multiple entries, and if the total **contribution points** is already above the threshold, we will include you as a co-author (Generally it is enough to only propose 1-2 datasets). Read the full method of calculating points [here](POINTS.md).
+# Load multiple datasets based on the dataset names
+dsets = sc.load_datasets(["thai_sum", "vsolscsum"], schema="seacrowd_t2t")
+```
 
-> **Note**: We are not taking any ownership of the submitted dataset. See FAQ below.
+### List & Load Benchmark
+In addition to dataset-related functions, SEACrowd provides additional functions for listing and loading some SEA benchmarks.
+```
+# List all benchmarks
+benchmark_names = sc.list_benchmarks()
 
-## Any other way to help?
+# Load all datasets in a benchmark
+seacrowd_vl_dsets = sc.load_benchmark("SEACrowd-VL")
+```
 
-Yes! Aside from new dataset collection, we are also centralizing existing datasets in a single schema that makes it easier for researchers to use Indonesian NLP datasets. You can help us there by building dataset loader. More details about that [here](DATALOADER.md).
+### Load Metadata
+Aside from loading datasets and benchmarks, `seacrowd` also supports loading the metadata (e.g., license, description, citation,  etc.) of the dataloaders.
+```
+# Load metadata of a dataloader
+khpos_meta = sc.for_dataset("khpos")
 
-Alternatively, we're also listing NLP research papers of Indonesian languages where they do not open their dataset yet. We will contact the authors of these papers later to be involved in SEACrowd. More about this is available in our [Discord server](https://discord.gg/URdhUGsBUQ).
+# Load metadata of multiple dataloaders
+meta_dsets = sc.for_datasets(["thai_sum", "vsolscsum"])
 
-## FAQs
+# Load metadata of a config name
+nusaparagraph_meta = sc.for_config_name("nusaparagraph_emot_jav_seacrowd_text")
 
-#### Who will be the owner of the submitted dataset?
+# Load metadata of multiple config names
+meta_dsets = sc.for_config_names(["sentiment_nathasa_review_seacrowd_text", "indonli_seacrowd_pairs"])
+```
 
-SEACrowd **do not** make a clone or copy of the submitted dataset. Therefore, the owner of any submitted dataset will remain to the original author. SEACrowd simply build a dataloader, i.e. a file downloader + reader so simplify and standardize the data reading process. We also only collect and centralize metadata of the submitted dataset to be listed in [our catalogue](https://seacrowd.github.io/seacrowd-catalogue/) for better discoverability of your dataset!
-Citation to the original data owner is also provided for both SEACrowd and in our catalogue.
+We can also load the dataloader from the metadata if we want.
 
-#### How can I find the appropriate license for my dataset?
+```
+# Load dataset from metadata
+khpos_dset = khpos_meta.load_dataset()
+```
 
-The license for a dataset is not always obvious. Here are some strategies to try in your search,
+> For the functions' sample outputs, check our [release notes](https://github.com/SEACrowd/seacrowd-datahub/releases/tag/0.1.3).
 
-* check for files such as README or LICENSE that may be distributed with the dataset itself
-* check the dataset webpage
-* check publications that announce the release of the dataset
-* check the website of the organization providing the dataset
+## How to Contribute
 
-If no official license is listed anywhere, but you find a webpage that describes general data usage policies for the dataset, you can fall back to providing that URL in the `_LICENSE` variable. If you can't find any license information, please note in your PR and put `_LICENSE="Unknown"` in your dataset script.
+Check out our [CONTRIBUTING.md](https://github.com/SEACrowd/seacrowd-datahub/blob/master/CONTRIBUTING.md) for a gentle introduction to contributing in SEACrowd. Jump straight ahead to [DATALOADER.md](https://github.com/SEACrowd/seacrowd-datahub/blob/master/DATALOADER.md) if you have decided to contribute by implementing dataloaders for our Data Hub!
 
-#### What if my dataset is not yet publicly available?
-You can upload your dataset publicly first, eg. on Github. If you're an owner of a Private Dataset that is being contacted by SEACrowd Representative for a possibility of opening that dataset, you may visit this [Private Dataset FAQ](PRIVATE.md).
+## Citation
 
-#### Can I create a PR if I have an idea?
+If you are using any resources from SEACrowd, including datasheets, dataloaders, code, etc., please cite [the following publication](https://arxiv.org/pdf/2406.10118):
 
-If you have an idea to improve or change the code of the `seacrowd-datahub` repository, please create an `issue` and ask for `feedback` before starting any PRs.
-
-#### I am confused, can you help me?
-
-Yes, you can ask for helps in SEACrowd's community channel! Please join our [Discord server](https://discord.gg/URdhUGsBUQ).
-
-
-## Thank you!
-
-We greatly appreciate your help!
-
-The artifacts of this initiative will be described in a forthcoming academic paper targeting a machine learning or NLP audience. Please refer to [this section](https://github.com/SEACrowd#how-much-should-i-contribute) for your contribution rewards in helping South-East Asian NLP. We recognize that some datasets require more effort than others, so please reach out if you have questions. Our goal is to be inclusive with credit!
+```
+@article{lovenia2024seacrowd,
+      title={SEACrowd: A Multilingual Multimodal Data Hub and Benchmark Suite for Southeast Asian Languages}, 
+      author={Holy Lovenia and Rahmad Mahendra and Salsabil Maulana Akbar and Lester James V. Miranda and Jennifer Santoso and Elyanah Aco and Akhdan Fadhilah and Jonibek Mansurov and Joseph Marvin Imperial and Onno P. Kampman and Joel Ruben Antony Moniz and Muhammad Ravi Shulthan Habibi and Frederikus Hudi and Railey Montalan and Ryan Ignatius and Joanito Agili Lopo and William Nixon and Börje F. Karlsson and James Jaya and Ryandito Diandaru and Yuze Gao and Patrick Amadeus and Bin Wang and Jan Christian Blaise Cruz and Chenxi Whitehouse and Ivan Halim Parmonangan and Maria Khelli and Wenyu Zhang and Lucky Susanto and Reynard Adha Ryanda and Sonny Lazuardi Hermawan and Dan John Velasco and Muhammad Dehan Al Kautsar and Willy Fitra Hendria and Yasmin Moslem and Noah Flynn and Muhammad Farid Adilazuarda and Haochen Li and Johanes Lee and R. Damanhuri and Shuo Sun and Muhammad Reza Qorib and Amirbek Djanibekov and Wei Qi Leong and Quyet V. Do and Niklas Muennighoff and Tanrada Pansuwan and Ilham Firdausi Putra and Yan Xu and Ngee Chia Tai and Ayu Purwarianti and Sebastian Ruder and William Tjhi and Peerat Limkonchotiwat and Alham Fikri Aji and Sedrick Keh and Genta Indra Winata and Ruochen Zhang and Fajri Koto and Zheng-Xin Yong and Samuel Cahyawijaya},
+      year={2024},
+      eprint={2406.10118},
+      journal={arXiv preprint arXiv: 2406.10118}
+}
+```
 
 ## Acknowledgements
 
-Our initiative is heavily inspired by [NusaCrowd](https://github.com/IndoNLP/nusa-crowd/tree/master/nusacrowd) which provides open access data to 100+ Indonesian NLP corpora. You can check NusaCrowd paper on the following [link](https://aclanthology.org/2023.findings-acl.868/).
+Our initiative is heavily inspired by [NusaCrowd](https://github.com/IndoNLP/nusa-crowd/tree/master/nusacrowd) which provides open access data to 100+ Indonesian NLP corpora. You can check NusaCrowd paper (published in ACL Findings 2023) on the following [link](https://aclanthology.org/2023.findings-acl.868/).

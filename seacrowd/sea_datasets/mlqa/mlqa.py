@@ -29,6 +29,7 @@ German, Spanish, Hindi, Vietnamese and Simplified Chinese. MLQA is highly parall
 
 _HOMEPAGE = "https://github.com/facebookresearch/MLQA"
 _LICENSE = Licenses.CC_BY_SA_3_0.value
+_LANGUAGES = ["vie"]
 _URL = "https://dl.fbaipublicfiles.com/MLQA/"
 _DEV_TEST_URL = "MLQA_V1.zip"
 _TRANSLATE_TEST_URL = "mlqa-translate-test.tar.gz"
@@ -36,7 +37,9 @@ _TRANSLATE_TRAIN_URL = "mlqa-translate-train.tar.gz"
 _SUPPORTED_TASKS = [Tasks.QUESTION_ANSWERING]
 
 _SOURCE_VERSION = "1.0.0"
-_SEACROWD_VERSION = "1.0.0"
+_SEACROWD_VERSION = "2024.06.20"
+
+_LOCAL = False
 
 
 class MLQADataset(datasets.GeneratorBasedBuilder):

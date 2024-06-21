@@ -10,6 +10,10 @@ from seacrowd.utils.schemas import (
     pairs_features_score,
     pairs_multi_features,
     qa_features,
+    chat_features,
+    image_features,
+    image_multi_features,
+    imqa_features,
     seq_label_features,
     speech2speech_features,
     speech_features,
@@ -43,19 +47,21 @@ class Tasks(Enum):
     WORD_ANALOGY = "WA"
     WORD_SENSE_DISAMBIGUATION = "WSD"
     COREFERENCE_RESOLUTION = "COREF"
+    RELATION_EXTRACTION = "RE"
 
     # Tree
     CONSTITUENCY_PARSING = "CONST_PAR"
 
     # Single Text Classification (single-label)
     ABUSIVE_LANGUAGE_PREDICTION = "ABL"
+    COMPLAINT_DETECTION = "CD"
     DOMAIN_KNOWLEDGE_CLASSIFICATION = "DKC" # classification for non NLP-oriented label
-
     EMOTION_CLASSIFICATION = "EC"
     LANGUAGE_IDENTIFICATION = "LI"
     HOAX_NEWS_CLASSIFICATION = "HNC"
     INTENT_CLASSIFICATION = "INT"
     LEGAL_CLASSIFICATION = "LC"
+    MORALITY_CLASSIFICATION = "MC"
     READABILITY_ASSESSMENT = "RA"
     RHETORIC_MODE_CLASSIFICATION = "RMC"
     SENTIMENT_ANALYSIS = "SA"
@@ -66,18 +72,21 @@ class Tasks(Enum):
     # Single Text Classification (multi-label)
     ASPECT_BASED_SENTIMENT_ANALYSIS = "ABSA"
     DOMAIN_KNOWLEDGE_MULTICLASSIFICATION = "DKM" # multi-classification for non NLP-oriented label
+    CODE_SWITCHING_IDENTIFICATION = "CSI"
 
     # Single Text Sequence Labeling
     KEYWORD_TAGGING = "KT"
     NAMED_ENTITY_RECOGNITION = "NER"
     POS_TAGGING = "POS"
     SENTENCE_ORDERING = "SO"
+    SLOT_FILLING = "SF"
     SPAN_BASED_ABSA = "SPAN_ABSA"
     TOKEN_LEVEL_LANGUAGE_IDENTIFICATION = "LANGID"
 
     # Pair Text Classification
     COMMONSENSE_REASONING = "CR"
     QUESTION_ANSWERING = "QA"
+    QUESTION_ANSWERING_RETRIEVAL = "QAR"
     TEXT_RETRIEVAL = "TRV"
     TEXTUAL_ENTAILMENT = "TE"
     SEMANTIC_SIMILARITY = "STS"
@@ -87,6 +96,7 @@ class Tasks(Enum):
     CONCEPT_ALIGNMENT_CLASSIFICATION = "CAC"
 
     # Single Text Generation
+    CROSS_LINGUAL_SUMMARIZATION = "X-SUM"
     INSTRUCTION_TUNING = "ITT"
     MACHINE_TRANSLATION = "MT"
     MULTILEXNORM = "MLN"
@@ -97,6 +107,7 @@ class Tasks(Enum):
     # Multi Text Generation
     DIALOGUE_SYSTEM = "DS"
     E2E_TASK_ORIENTED_DIALOGUE = "TOD"
+    MULTI_TURN_CONVERSATION = "MTC"
 
     # Self Supervised & Unsupervised Text
     PROMPTING = "PRT"
@@ -115,11 +126,17 @@ class Tasks(Enum):
     # SpeechSpeech
     SPEECH_TO_SPEECH_TRANSLATION = "S2ST"
 
+    # Image
+    IMAGE_CLASSIFICATION = "IMC"
+    IMAGE_CLASSIFICATION_MULTILABEL = "IMC_MULTI"
+
     # ImageText
     IMAGE_CAPTIONING = "IC"
+    VISUAL_QUESTION_ANSWERING = "VQA"
     SIGN_LANGUAGE_RECOGNITION = "SLR"
     STYLIZED_IMAGE_CAPTIONING = "SIC"
     VISUALLY_GROUNDED_REASONING = "VGR"
+    OPTICAL_CHARACTER_RECOGNITION = "OCR"
 
     # VideoText
     VIDEO_CAPTIONING = "VC"
@@ -127,6 +144,7 @@ class Tasks(Enum):
 
     # No seacrowd schema
     FACT_CHECKING = "FCT"
+    WORD_LIST = "WL"
 
 
 class Licenses(Enum):
@@ -215,20 +233,24 @@ class Licenses(Enum):
 TASK_TO_SCHEMA = {
     Tasks.COREFERENCE_RESOLUTION: "KB",
     Tasks.DEPENDENCY_PARSING: "KB",
+    Tasks.RELATION_EXTRACTION: "KB",
     Tasks.CONSTITUENCY_PARSING: "TREE",
     Tasks.E2E_TASK_ORIENTED_DIALOGUE: "TOD",
+    Tasks.DIALOGUE_SYSTEM: "T2T",
     Tasks.WORD_SENSE_DISAMBIGUATION: "T2T",
     Tasks.WORD_ANALOGY: "T2T",
     Tasks.KEYWORD_EXTRACTION: "SEQ_LABEL",
-    Tasks.DIALOGUE_SYSTEM: "T2T",
     Tasks.KEYWORD_TAGGING: "SEQ_LABEL",
     Tasks.NAMED_ENTITY_RECOGNITION: "SEQ_LABEL",
     Tasks.POS_TAGGING: "SEQ_LABEL",
     Tasks.SENTENCE_ORDERING: "SEQ_LABEL",
+    Tasks.SLOT_FILLING: "SEQ_LABEL",
     Tasks.SPAN_BASED_ABSA: "SEQ_LABEL",
     Tasks.TOKEN_LEVEL_LANGUAGE_IDENTIFICATION: "SEQ_LABEL",
     Tasks.COMMONSENSE_REASONING: "QA",
     Tasks.QUESTION_ANSWERING: "QA",
+    Tasks.MULTI_TURN_CONVERSATION: "CHAT",
+    Tasks.QUESTION_ANSWERING_RETRIEVAL: "QA",
     Tasks.CONCEPT_ALIGNMENT_CLASSIFICATION: "PAIRS",
     Tasks.NEXT_SENTENCE_PREDICTION: "PAIRS",
     Tasks.TEXT_RETRIEVAL: "PAIRS",
@@ -236,6 +258,7 @@ TASK_TO_SCHEMA = {
     Tasks.SEMANTIC_SIMILARITY: "PAIRS_SCORE",
     Tasks.SHORT_ANSWER_GRADING: "PAIRS_SCORE",
     Tasks.MORPHOLOGICAL_INFLECTION: "PAIRS_MULTI",
+    Tasks.CROSS_LINGUAL_SUMMARIZATION: "T2T",
     Tasks.INSTRUCTION_TUNING: "T2T",
     Tasks.PARAPHRASING: "T2T",
     Tasks.MACHINE_TRANSLATION: "T2T",
@@ -244,7 +267,9 @@ TASK_TO_SCHEMA = {
     Tasks.TRANSLITERATION: "T2T",
     Tasks.ASPECT_BASED_SENTIMENT_ANALYSIS: "TEXT_MULTI",
     Tasks.DOMAIN_KNOWLEDGE_MULTICLASSIFICATION: "TEXT_MULTI",
+    Tasks.CODE_SWITCHING_IDENTIFICATION: "TEXT_MULTI",
     Tasks.ABUSIVE_LANGUAGE_PREDICTION: "TEXT",
+    Tasks.COMPLAINT_DETECTION: "TEXT",
     Tasks.DOMAIN_KNOWLEDGE_CLASSIFICATION: "TEXT",
     Tasks.SENTIMENT_ANALYSIS: "TEXT",
     Tasks.TAX_COURT_VERDICT: "TEXT",
@@ -266,13 +291,19 @@ TASK_TO_SCHEMA = {
     Tasks.SPEECH_LANGUAGE_IDENTIFICATION: "SPEECH",
     Tasks.SPEECH_EMOTION_RECOGNITION: "SPEECH",
     Tasks.SPEECH_EMOTION_RECOGNITION_MULTILABEL: "SPEECH_MULTI",
+    Tasks.VISUAL_QUESTION_ANSWERING: "IMQA",
+    Tasks.IMAGE_CLASSIFICATION: "IMAGE",
+    Tasks.IMAGE_CLASSIFICATION_MULTILABEL: "IMAGE_MULTI",
     Tasks.IMAGE_CAPTIONING: "IMTEXT",
     Tasks.SIGN_LANGUAGE_RECOGNITION: "IMTEXT",
+    Tasks.OPTICAL_CHARACTER_RECOGNITION: "IMTEXT",
     Tasks.STYLIZED_IMAGE_CAPTIONING: "IMTEXT",
     Tasks.VISUALLY_GROUNDED_REASONING: "IMTEXT",
     Tasks.VIDEO_CAPTIONING: "VIDTEXT",
     Tasks.VIDEO_TO_TEXT_RETRIEVAL: "VIDTEXT",
     Tasks.FACT_CHECKING: None,
+    Tasks.WORD_LIST: None,
+    Tasks.MORALITY_CLASSIFICATION: "TEXT",
 }
 
 SCHEMA_TO_TASKS = defaultdict(set)
@@ -287,6 +318,7 @@ SCHEMA_TO_FEATURES = {
     "KB": kb_features,
     "TREE": tree_features,
     "QA": qa_features,
+    "CHAT": chat_features,
     "T2T": text2text_features,
     "TEXT": text_features(),
     "TEXT_MULTI": text_multi_features(),
@@ -299,7 +331,10 @@ SCHEMA_TO_FEATURES = {
     "S2S": speech2speech_features,
     "SPEECH": speech_features(),
     "SPEECH_MULTI": speech_multi_features(),
+    "IMAGE": image_features(),
+    "IMAGE_MULTI": image_multi_features(),
     "IMTEXT": image_text_features(),
+    "IMQA": imqa_features,
     "VIDTEXT": video_features,
     "TOD": tod_features,
 }
@@ -308,6 +343,7 @@ TASK_TO_FEATURES = {
     Tasks.NAMED_ENTITY_RECOGNITION: {"entities"},
     Tasks.DEPENDENCY_PARSING: {"relations", "entities"},
     Tasks.COREFERENCE_RESOLUTION: {"entities", "coreferences"},
+    Tasks.RELATION_EXTRACTION: {"relations", 'entities'},
     # Tasks.SPAN_BASED_ABSA: {"entities", "coreferences"},
     # Tasks.NAMED_ENTITY_DISAMBIGUATION: {"entities", "normalized"},
     # Tasks.EVENT_EXTRACTION: {"events"}
